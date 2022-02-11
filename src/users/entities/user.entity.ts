@@ -1,18 +1,8 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prisma } from '@prisma/client';
 
-export type UserDocument = User & Document;
-
-@Schema()
-export class User {
-  @Prop()
-  name: string;
-
-  @Prop()
+export class User implements Prisma.UserUncheckedCreateInput {
+  id?: string;
   email: string;
-
-  @Prop()
+  name: string;
   password: string;
 }
-
-export const UserSchema = SchemaFactory.createForClass(User);

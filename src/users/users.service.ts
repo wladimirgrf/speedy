@@ -1,45 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User, UserDocument } from './entities/user.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(User.name)
-    private userModel: Model<UserDocument>,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(createUserDto: CreateUserDto) {
-    const user = new this.userModel(createUserDto);
-    return user.save();
+  create(createUserDto: CreateUserDto): Promise<User> {
+    const user: Prisma.UserCreateInput = createUserDto;
+
+    return this.prisma.user.create({ data: user });
   }
 
-  findAll() {
-    return this.userModel.find();
+  findAll(): Promise<User[]> {
+    return this.prisma.user.findMany();
   }
 
-  findOne(id: string) {
-    return this.userModel.findById(id);
+  findOne(id: string): Promise<User> {
+    return this.prisma.user.findUnique({ where: { id } });
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return this.userModel.findByIdAndUpdate(
-      {
-        _id: id,
-      },
-      {
-        $set: updateUserDto,
-      },
-      {
-        new: true,
-      },
-    );
+  update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user: Prisma.UserUpdateInput = updateUserDto;
+
+    return this.prisma.user.update({ where: { id }, data: user });
   }
 
   remove(id: string) {
-    return this.userModel.deleteOne({ _id: id }).exec();
+    return this.prisma.user.delete({ where: { id } });
   }
 }
