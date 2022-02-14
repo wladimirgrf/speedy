@@ -24,8 +24,15 @@ export class UsersService {
     return this.prisma.user.findMany({ select: UserSelect });
   }
 
-  findOne(id: string): Promise<User> {
+  findById(id: string): Promise<User> {
     return this.prisma.user.findUnique({ where: { id }, select: UserSelect });
+  }
+
+  findByEmail(email: string): Promise<User> {
+    return this.prisma.user.findUnique({
+      where: { email },
+      select: UserSelect,
+    });
   }
 
   update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
