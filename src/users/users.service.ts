@@ -1,6 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { ConflictError } from 'src/errors/ConflictError';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -17,7 +18,7 @@ export class UsersService {
     });
 
     if (userAlreadyExists) {
-      throw new BadRequestException('This email is already being used.');
+      throw new ConflictError('This email is already being used.');
     }
 
     const user: Prisma.UserCreateInput = {
