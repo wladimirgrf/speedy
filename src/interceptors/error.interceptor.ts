@@ -11,16 +11,16 @@ import * as AcceptedErrors from '../errors';
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const handler = (error: any) => {
-      const appError = AcceptedErrors[error.constructor.name];
+    return next.handle().pipe(catchError((error) => this.handler(error)));
+  }
 
-      if (appError && appError.httpError instanceof Function) {
-        appError.httpError(error.message);
-      }
+  handler(error: any): Observable<any> {
+    const acceptedError = AcceptedErrors[error.constructor.name];
 
-      throw error;
-    };
+    if (acceptedError && acceptedError.httpError instanceof Function) {
+      acceptedError.httpError(error.message);
+    }
 
-    return next.handle().pipe(catchError((error) => handler(error)));
+    throw error;
   }
 }
