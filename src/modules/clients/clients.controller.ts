@@ -7,35 +7,50 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dtos/create-client.dto';
 import { UpdateClientDto } from './dtos/update-client.dto';
+import { CreateAuthDto, CreateClientTokenDto } from './dtos/auth-client.dto';
 import { Client } from './entities/client.entity';
 import { AuthGuard } from '@nestjs/passport';
+import { ClientsAuthService } from './clients.auth.service';
 
 @Controller('clients')
 export class ClientsController {
-  constructor(private readonly clientsService: ClientsService) {}
+  constructor(
+    private readonly clientsService: ClientsService,
+    private readonly clientsAuthService: ClientsAuthService,
+  ) {}
+
+  @Post('authenticate')
+  @HttpCode(HttpStatus.OK)
+  login(
+    @Body() { username, password }: CreateAuthDto,
+  ): Promise<CreateClientTokenDto> {
+    return this.clientsAuthService.login(username, password);
+  }
 
   @Post()
   create(@Body() createUserDto: CreateClientDto): Promise<Client> {
     return this.clientsService.create(createUserDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('client'))
   @Get()
   findAll(): Promise<Client[]> {
     return this.clientsService.findAll();
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('client'))
   @Get(':id')
   findById(@Param('id') id: string): Promise<Client> {
     return this.clientsService.findById(id);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('client'))
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -44,7 +59,7 @@ export class ClientsController {
     return this.clientsService.update(id, updateUserDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('client'))
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<void> {
     await this.clientsService.remove(id);
