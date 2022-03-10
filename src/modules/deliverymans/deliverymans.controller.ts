@@ -40,19 +40,21 @@ export class DeliverymansController {
   create(
     @Body() createDeliverymanDto: CreateDeliverymanDto,
   ): Promise<Deliveryman> {
-    return this.deliverymansService.create(createDeliverymanDto);
+    return this.deliverymansService.create(createDeliverymanDto, {
+      password: false,
+    });
   }
 
   @UseGuards(AuthGuard('deliveryman'))
   @Get()
   findAll(): Promise<Deliveryman[]> {
-    return this.deliverymansService.findAll();
+    return this.deliverymansService.findAll({ password: false });
   }
 
   @UseGuards(AuthGuard('deliveryman'))
   @Get(':id')
   findById(@Param('id') id: string): Promise<Deliveryman> {
-    return this.deliverymansService.findById(id);
+    return this.deliverymansService.findById(id, { password: false });
   }
 
   @UseGuards(AuthGuard('deliveryman'))
@@ -61,11 +63,14 @@ export class DeliverymansController {
     @Param('id') id: string,
     @Body() updateDeliverymanDto: UpdateDeliverymanDto,
   ): Promise<Deliveryman> {
-    return this.deliverymansService.update(id, updateDeliverymanDto);
+    return this.deliverymansService.update(id, updateDeliverymanDto, {
+      password: false,
+    });
   }
 
   @UseGuards(AuthGuard('deliveryman'))
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id') id: string): Promise<void> {
     await this.deliverymansService.remove(id);
   }

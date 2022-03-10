@@ -10,6 +10,10 @@ import {
   DeliverymanCreateInput,
   DeliverymanUpdateInput,
 } from './entities/deliverymana.entity';
+import {
+  DeliverymanSelect,
+  deliverymanDefaultSelect,
+} from './dtos/select-deliveryman.dto';
 
 @Injectable()
 export class DeliverymansService {
@@ -17,10 +21,14 @@ export class DeliverymansService {
 
   async create(
     createDeliverymanDto: CreateDeliverymanDto,
+    deliverymanSelect?: DeliverymanSelect,
   ): Promise<Deliveryman> {
+    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+
     const deliverymanAlreadyExists = await this.database.deliveryman.findUnique(
       {
         where: { username: createDeliverymanDto.username },
+        select,
       },
     );
 
@@ -36,24 +44,37 @@ export class DeliverymansService {
     return this.database.deliveryman.create({ data: deliveryman });
   }
 
-  findAll(): Promise<Deliveryman[]> {
-    return this.database.deliveryman.findMany();
+  findAll(deliverymanSelect?: DeliverymanSelect): Promise<Deliveryman[]> {
+    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    return this.database.deliveryman.findMany({ select });
   }
 
-  findById(id: string): Promise<Deliveryman> {
-    return this.database.deliveryman.findUnique({ where: { id } });
+  findById(
+    id: string,
+    deliverymanSelect?: DeliverymanSelect,
+  ): Promise<Deliveryman> {
+    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    return this.database.deliveryman.findUnique({ where: { id }, select });
   }
 
-  findByUsername(username: string): Promise<Deliveryman> {
+  findByUsername(
+    username: string,
+    deliverymanSelect?: DeliverymanSelect,
+  ): Promise<Deliveryman> {
+    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
     return this.database.deliveryman.findUnique({
       where: { username },
+      select,
     });
   }
 
   async update(
     id: string,
     updateDeliverymanDto: UpdateDeliverymanDto,
+    deliverymanSelect?: DeliverymanSelect,
   ): Promise<Deliveryman> {
+    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+
     const deliveryman: DeliverymanUpdateInput = {
       ...updateDeliverymanDto,
       password: await bcrypt.hash(updateDeliverymanDto.password, 10),
@@ -62,10 +83,12 @@ export class DeliverymansService {
     return this.database.deliveryman.update({
       where: { id },
       data: deliveryman,
+      select,
     });
   }
 
-  remove(id: string) {
-    return this.database.deliveryman.delete({ where: { id } });
+  remove(id: string, deliverymanSelect?: DeliverymanSelect) {
+    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    return this.database.deliveryman.delete({ where: { id }, select });
   }
 }
