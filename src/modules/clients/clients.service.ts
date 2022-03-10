@@ -46,8 +46,11 @@ export class ClientsService {
     });
   }
 
-  update(id: string, updateUserDto: UpdateClientDto): Promise<Client> {
-    const client: ClientUpdateInput = updateUserDto;
+  async update(id: string, updateUserDto: UpdateClientDto): Promise<Client> {
+    const client: ClientUpdateInput = {
+      ...updateUserDto,
+      password: await bcrypt.hash(updateUserDto.password, 10),
+    };
 
     return this.database.client.update({
       where: { id },

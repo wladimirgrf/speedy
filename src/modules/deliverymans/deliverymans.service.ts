@@ -50,11 +50,14 @@ export class DeliverymansService {
     });
   }
 
-  update(
+  async update(
     id: string,
     updateDeliverymanDto: UpdateDeliverymanDto,
   ): Promise<Deliveryman> {
-    const deliveryman: DeliverymanUpdateInput = updateDeliverymanDto;
+    const deliveryman: DeliverymanUpdateInput = {
+      ...updateDeliverymanDto,
+      password: await bcrypt.hash(updateDeliverymanDto.password, 10),
+    };
 
     return this.database.deliveryman.update({
       where: { id },
