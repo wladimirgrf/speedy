@@ -5,11 +5,7 @@ import { ConflictError } from 'src/errors/ConflictError';
 import { DatabaseService } from 'src/database/database.service';
 import { CreateClientDto } from './dtos/create-client.dto';
 import { UpdateClientDto } from './dtos/update-client.dto';
-import {
-  Client,
-  ClientCreateInput,
-  ClientUpdateInput,
-} from './entities/client.entity';
+import { Client, ClientCreateInput } from './entities/client.entity';
 import {
   ClientColumnsToReturn,
   clientDefaultColumnsToReturn,

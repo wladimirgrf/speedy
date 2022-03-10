@@ -8,7 +8,6 @@ import { UpdateDeliverymanDto } from './dtos/update-deliveryman.dto';
 import {
   Deliveryman,
   DeliverymanCreateInput,
-  DeliverymanUpdateInput,
 } from './entities/deliverymana.entity';
 import {
   DeliverymanColumnsToReturn,
