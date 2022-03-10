@@ -17,6 +17,7 @@ import { CreateAuthDto, CreateClientTokenDto } from './dtos/auth-client.dto';
 import { Client } from './entities/client.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { ClientsAuthService } from './clients.auth.service';
+import { User, UserDecorator } from 'src/decorators/user.decorator';
 
 @Controller('clients')
 export class ClientsController {
@@ -39,24 +40,26 @@ export class ClientsController {
   }
 
   @UseGuards(AuthGuard('client'))
-  @Get(':id')
-  findById(@Param('id') id: string): Promise<Client> {
-    return this.clientsService.findById(id, { password: false });
+  @Get()
+  findById(@User() user: UserDecorator): Promise<Client> {
+    return this.clientsService.findById(user.id, { password: false });
   }
 
   @UseGuards(AuthGuard('client'))
-  @Patch(':id')
+  @Patch()
   update(
-    @Param('id') id: string,
+    @User() user: UserDecorator,
     @Body() updateUserDto: UpdateClientDto,
   ): Promise<Client> {
-    return this.clientsService.update(id, updateUserDto, { password: false });
+    return this.clientsService.update(user.id, updateUserDto, {
+      password: false,
+    });
   }
 
   @UseGuards(AuthGuard('client'))
-  @Delete(':id')
+  @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remove(@Param('id') id: string): Promise<void> {
-    await this.clientsService.remove(id);
+  async remove(@User() user: UserDecorator): Promise<void> {
+    await this.clientsService.remove(user.id);
   }
 }

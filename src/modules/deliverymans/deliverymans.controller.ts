@@ -20,6 +20,7 @@ import {
 import { Deliveryman } from './entities/deliverymana.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { DeliverymansAuthService } from './deliverymans.auth.service';
+import { User, UserDecorator } from 'src/decorators/user.decorator';
 
 @Controller('deliverymans')
 export class DeliverymansController {
@@ -46,26 +47,26 @@ export class DeliverymansController {
   }
 
   @UseGuards(AuthGuard('deliveryman'))
-  @Get(':id')
-  findById(@Param('id') id: string): Promise<Deliveryman> {
-    return this.deliverymansService.findById(id, { password: false });
+  @Get()
+  findById(@User() user: UserDecorator): Promise<Deliveryman> {
+    return this.deliverymansService.findById(user.id, { password: false });
   }
 
   @UseGuards(AuthGuard('deliveryman'))
-  @Patch(':id')
+  @Patch()
   update(
-    @Param('id') id: string,
+    @User() user: UserDecorator,
     @Body() updateDeliverymanDto: UpdateDeliverymanDto,
   ): Promise<Deliveryman> {
-    return this.deliverymansService.update(id, updateDeliverymanDto, {
+    return this.deliverymansService.update(user.id, updateDeliverymanDto, {
       password: false,
     });
   }
 
   @UseGuards(AuthGuard('deliveryman'))
-  @Delete(':id')
+  @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  async remove(@Param('id') id: string): Promise<void> {
-    await this.deliverymansService.remove(id);
+  async remove(@User() user: UserDecorator): Promise<void> {
+    await this.deliverymansService.remove(user.id);
   }
 }
