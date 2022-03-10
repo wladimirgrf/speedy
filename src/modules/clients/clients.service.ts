@@ -10,7 +10,10 @@ import {
   ClientCreateInput,
   ClientUpdateInput,
 } from './entities/client.entity';
-import { ClientSelect, clientDefaultSelect } from './dtos/select-client.dto';
+import {
+  ClientColumnsToReturn,
+  clientDefaultColumnsToReturn,
+} from './dtos/select-client.dto';
 
 @Injectable()
 export class ClientsService {
@@ -18,9 +21,12 @@ export class ClientsService {
 
   async create(
     createUserDto: CreateClientDto,
-    clientSelect?: ClientSelect,
+    clientColumnsToReturn?: ClientColumnsToReturn,
   ): Promise<Client> {
-    const select = { ...clientDefaultSelect, ...clientSelect };
+    const select = {
+      ...clientDefaultColumnsToReturn,
+      ...clientColumnsToReturn,
+    };
 
     const clientAlreadyExists = await this.database.client.findUnique({
       where: { username: createUserDto.username },
@@ -38,21 +44,36 @@ export class ClientsService {
     return this.database.client.create({ data: client, select });
   }
 
-  findAll(clientSelect?: ClientSelect): Promise<Client[]> {
-    const select = { ...clientDefaultSelect, ...clientSelect };
+  findAll(clientColumnsToReturn?: ClientColumnsToReturn): Promise<Client[]> {
+    const select = {
+      ...clientDefaultColumnsToReturn,
+      ...clientColumnsToReturn,
+    };
+
     return this.database.client.findMany({ select });
   }
 
-  findById(id: string, clientSelect?: ClientSelect): Promise<Client> {
-    const select = { ...clientDefaultSelect, ...clientSelect };
+  findById(
+    id: string,
+    clientColumnsToReturn?: ClientColumnsToReturn,
+  ): Promise<Client> {
+    const select = {
+      ...clientDefaultColumnsToReturn,
+      ...clientColumnsToReturn,
+    };
+
     return this.database.client.findUnique({ where: { id }, select });
   }
 
   findByUsername(
     username: string,
-    clientSelect?: ClientSelect,
+    clientColumnsToReturn?: ClientColumnsToReturn,
   ): Promise<Client> {
-    const select = { ...clientDefaultSelect, ...clientSelect };
+    const select = {
+      ...clientDefaultColumnsToReturn,
+      ...clientColumnsToReturn,
+    };
+
     return this.database.client.findUnique({
       where: { username },
       select,
@@ -62,9 +83,12 @@ export class ClientsService {
   async update(
     id: string,
     updateUserDto: UpdateClientDto,
-    clientSelect?: ClientSelect,
+    clientColumnsToReturn?: ClientColumnsToReturn,
   ): Promise<Client> {
-    const select = { ...clientDefaultSelect, ...clientSelect };
+    const select = {
+      ...clientDefaultColumnsToReturn,
+      ...clientColumnsToReturn,
+    };
 
     const client: ClientUpdateInput = {
       ...updateUserDto,
@@ -78,8 +102,12 @@ export class ClientsService {
     });
   }
 
-  remove(id: string, clientSelect?: ClientSelect) {
-    const select = { ...clientDefaultSelect, ...clientSelect };
+  remove(id: string, clientColumnsToReturn?: ClientColumnsToReturn) {
+    const select = {
+      ...clientDefaultColumnsToReturn,
+      ...clientColumnsToReturn,
+    };
+
     return this.database.client.delete({ where: { id }, select });
   }
 }

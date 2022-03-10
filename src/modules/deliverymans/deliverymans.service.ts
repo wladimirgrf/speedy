@@ -11,8 +11,8 @@ import {
   DeliverymanUpdateInput,
 } from './entities/deliverymana.entity';
 import {
-  DeliverymanSelect,
-  deliverymanDefaultSelect,
+  DeliverymanColumnsToReturn,
+  deliverymanDefaultColumnsToReturn,
 } from './dtos/select-deliveryman.dto';
 
 @Injectable()
@@ -21,9 +21,12 @@ export class DeliverymansService {
 
   async create(
     createDeliverymanDto: CreateDeliverymanDto,
-    deliverymanSelect?: DeliverymanSelect,
+    deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,
   ): Promise<Deliveryman> {
-    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    const select = {
+      ...deliverymanDefaultColumnsToReturn,
+      ...deliverymanColumnsToReturn,
+    };
 
     const deliverymanAlreadyExists = await this.database.deliveryman.findUnique(
       {
@@ -44,24 +47,38 @@ export class DeliverymansService {
     return this.database.deliveryman.create({ data: deliveryman });
   }
 
-  findAll(deliverymanSelect?: DeliverymanSelect): Promise<Deliveryman[]> {
-    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+  findAll(
+    deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,
+  ): Promise<Deliveryman[]> {
+    const select = {
+      ...deliverymanDefaultColumnsToReturn,
+      ...deliverymanColumnsToReturn,
+    };
+
     return this.database.deliveryman.findMany({ select });
   }
 
   findById(
     id: string,
-    deliverymanSelect?: DeliverymanSelect,
+    deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,
   ): Promise<Deliveryman> {
-    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    const select = {
+      ...deliverymanDefaultColumnsToReturn,
+      ...deliverymanColumnsToReturn,
+    };
+
     return this.database.deliveryman.findUnique({ where: { id }, select });
   }
 
   findByUsername(
     username: string,
-    deliverymanSelect?: DeliverymanSelect,
+    deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,
   ): Promise<Deliveryman> {
-    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    const select = {
+      ...deliverymanDefaultColumnsToReturn,
+      ...deliverymanColumnsToReturn,
+    };
+
     return this.database.deliveryman.findUnique({
       where: { username },
       select,
@@ -71,9 +88,12 @@ export class DeliverymansService {
   async update(
     id: string,
     updateDeliverymanDto: UpdateDeliverymanDto,
-    deliverymanSelect?: DeliverymanSelect,
+    deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,
   ): Promise<Deliveryman> {
-    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+    const select = {
+      ...deliverymanDefaultColumnsToReturn,
+      ...deliverymanColumnsToReturn,
+    };
 
     const deliveryman: DeliverymanUpdateInput = {
       ...updateDeliverymanDto,
@@ -87,8 +107,12 @@ export class DeliverymansService {
     });
   }
 
-  remove(id: string, deliverymanSelect?: DeliverymanSelect) {
-    const select = { ...deliverymanDefaultSelect, ...deliverymanSelect };
+  remove(id: string, deliverymanColumnsToReturn?: DeliverymanColumnsToReturn) {
+    const select = {
+      ...deliverymanDefaultColumnsToReturn,
+      ...deliverymanColumnsToReturn,
+    };
+
     return this.database.deliveryman.delete({ where: { id }, select });
   }
 }

@@ -1,10 +1,10 @@
-export interface DeliverymanSelect {
+export interface DeliverymanColumnsToReturn {
   id?: boolean;
   username?: boolean;
   password?: boolean;
 }
 
-export const deliverymanDefaultSelect = {
+export const deliverymanDefaultColumnsToReturn = {
   id: true,
   username: true,
   password: true,
