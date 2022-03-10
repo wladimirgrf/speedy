@@ -1,9 +1,10 @@
-import { IsString, MinLength, IsLowercase } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsString, MinLength } from 'class-validator';
 import { Client } from '../entities/client.entity';
 
 export class CreateClientDto extends Client {
   @IsString()
-  @IsLowercase()
+  @Transform((username) => username.value.toLowerCase())
   username: string;
 
   @IsString()

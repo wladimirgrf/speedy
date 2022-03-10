@@ -1,9 +1,10 @@
-import { IsString, MinLength, IsLowercase } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsString, MinLength } from 'class-validator';
 import { Deliveryman } from '../entities/deliverymana.entity';
 
 export class CreateDeliverymanDto extends Deliveryman {
   @IsString()
-  @IsLowercase()
+  @Transform((username) => username.value.toLowerCase())
   username: string;
 
   @IsString()
