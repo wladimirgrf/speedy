@@ -47,17 +47,6 @@ export class DeliverymansService {
     return this.database.deliveryman.create({ data: deliveryman });
   }
 
-  findAll(
-    deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,
-  ): Promise<Deliveryman[]> {
-    const select = {
-      ...deliverymanDefaultColumnsToReturn,
-      ...deliverymanColumnsToReturn,
-    };
-
-    return this.database.deliveryman.findMany({ select });
-  }
-
   findById(
     id: string,
     deliverymanColumnsToReturn?: DeliverymanColumnsToReturn,

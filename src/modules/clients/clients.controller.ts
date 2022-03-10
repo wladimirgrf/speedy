@@ -39,12 +39,6 @@ export class ClientsController {
   }
 
   @UseGuards(AuthGuard('client'))
-  @Get()
-  findAll(): Promise<Client[]> {
-    return this.clientsService.findAll({ password: false });
-  }
-
-  @UseGuards(AuthGuard('client'))
   @Get(':id')
   findById(@Param('id') id: string): Promise<Client> {
     return this.clientsService.findById(id, { password: false });

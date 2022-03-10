@@ -44,15 +44,6 @@ export class ClientsService {
     return this.database.client.create({ data: client, select });
   }
 
-  findAll(clientColumnsToReturn?: ClientColumnsToReturn): Promise<Client[]> {
-    const select = {
-      ...clientDefaultColumnsToReturn,
-      ...clientColumnsToReturn,
-    };
-
-    return this.database.client.findMany({ select });
-  }
-
   findById(
     id: string,
     clientColumnsToReturn?: ClientColumnsToReturn,

@@ -46,12 +46,6 @@ export class DeliverymansController {
   }
 
   @UseGuards(AuthGuard('deliveryman'))
-  @Get()
-  findAll(): Promise<Deliveryman[]> {
-    return this.deliverymansService.findAll({ password: false });
-  }
-
-  @UseGuards(AuthGuard('deliveryman'))
   @Get(':id')
   findById(@Param('id') id: string): Promise<Deliveryman> {
     return this.deliverymansService.findById(id, { password: false });
