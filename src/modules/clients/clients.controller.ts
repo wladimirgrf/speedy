@@ -35,19 +35,19 @@ export class ClientsController {
 
   @Post()
   create(@Body() createUserDto: CreateClientDto): Promise<Client> {
-    return this.clientsService.create(createUserDto);
+    return this.clientsService.create(createUserDto, { password: false });
   }
 
   @UseGuards(AuthGuard('client'))
   @Get()
   findAll(): Promise<Client[]> {
-    return this.clientsService.findAll();
+    return this.clientsService.findAll({ password: false });
   }
 
   @UseGuards(AuthGuard('client'))
   @Get(':id')
   findById(@Param('id') id: string): Promise<Client> {
-    return this.clientsService.findById(id);
+    return this.clientsService.findById(id, { password: false });
   }
 
   @UseGuards(AuthGuard('client'))
@@ -56,11 +56,12 @@ export class ClientsController {
     @Param('id') id: string,
     @Body() updateUserDto: UpdateClientDto,
   ): Promise<Client> {
-    return this.clientsService.update(id, updateUserDto);
+    return this.clientsService.update(id, updateUserDto, { password: false });
   }
 
   @UseGuards(AuthGuard('client'))
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id') id: string): Promise<void> {
     await this.clientsService.remove(id);
   }

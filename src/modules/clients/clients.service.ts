@@ -10,12 +10,18 @@ import {
   ClientCreateInput,
   ClientUpdateInput,
 } from './entities/client.entity';
+import { ClientSelect, clientDefaultSelect } from './dtos/select-client.dto';
 
 @Injectable()
 export class ClientsService {
   constructor(private readonly database: DatabaseService) {}
 
-  async create(createUserDto: CreateClientDto): Promise<Client> {
+  async create(
+    createUserDto: CreateClientDto,
+    clientSelect?: ClientSelect,
+  ): Promise<Client> {
+    const select = { ...clientDefaultSelect, ...clientSelect };
+
     const clientAlreadyExists = await this.database.client.findUnique({
       where: { username: createUserDto.username },
     });
@@ -29,24 +35,37 @@ export class ClientsService {
       password: await bcrypt.hash(createUserDto.password, 10),
     };
 
-    return this.database.client.create({ data: client });
+    return this.database.client.create({ data: client, select });
   }
 
-  findAll(): Promise<Client[]> {
-    return this.database.client.findMany();
+  findAll(clientSelect?: ClientSelect): Promise<Client[]> {
+    const select = { ...clientDefaultSelect, ...clientSelect };
+    return this.database.client.findMany({ select });
   }
 
-  findById(id: string): Promise<Client> {
-    return this.database.client.findUnique({ where: { id } });
+  findById(id: string, clientSelect?: ClientSelect): Promise<Client> {
+    const select = { ...clientDefaultSelect, ...clientSelect };
+    return this.database.client.findUnique({ where: { id }, select });
   }
 
-  findByUsername(username: string): Promise<Client> {
+  findByUsername(
+    username: string,
+    clientSelect?: ClientSelect,
+  ): Promise<Client> {
+    const select = { ...clientDefaultSelect, ...clientSelect };
     return this.database.client.findUnique({
       where: { username },
+      select,
     });
   }
 
-  async update(id: string, updateUserDto: UpdateClientDto): Promise<Client> {
+  async update(
+    id: string,
+    updateUserDto: UpdateClientDto,
+    clientSelect?: ClientSelect,
+  ): Promise<Client> {
+    const select = { ...clientDefaultSelect, ...clientSelect };
+
     const client: ClientUpdateInput = {
       ...updateUserDto,
       password: await bcrypt.hash(updateUserDto.password, 10),
@@ -55,10 +74,12 @@ export class ClientsService {
     return this.database.client.update({
       where: { id },
       data: client,
+      select,
     });
   }
 
-  remove(id: string) {
-    return this.database.client.delete({ where: { id } });
+  remove(id: string, clientSelect?: ClientSelect) {
+    const select = { ...clientDefaultSelect, ...clientSelect };
+    return this.database.client.delete({ where: { id }, select });
   }
 }
