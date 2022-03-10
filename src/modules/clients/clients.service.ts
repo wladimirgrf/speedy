@@ -73,7 +73,7 @@ export class ClientsService {
 
   async update(
     id: string,
-    updateUserDto: UpdateClientDto,
+    updateClientDto: UpdateClientDto,
     clientColumnsToReturn?: ClientColumnsToReturn,
   ): Promise<Client> {
     const select = {
@@ -81,14 +81,16 @@ export class ClientsService {
       ...clientColumnsToReturn,
     };
 
-    const client: ClientUpdateInput = {
-      ...updateUserDto,
-      password: await bcrypt.hash(updateUserDto.password, 10),
-    };
+    if (updateClientDto.password) {
+      updateClientDto.password = await bcrypt.hash(
+        updateClientDto.password,
+        10,
+      );
+    }
 
     return this.database.client.update({
       where: { id },
-      data: client,
+      data: updateClientDto,
       select,
     });
   }

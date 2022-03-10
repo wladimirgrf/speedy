@@ -84,14 +84,16 @@ export class DeliverymansService {
       ...deliverymanColumnsToReturn,
     };
 
-    const deliveryman: DeliverymanUpdateInput = {
-      ...updateDeliverymanDto,
-      password: await bcrypt.hash(updateDeliverymanDto.password, 10),
-    };
+    if (updateDeliverymanDto.password) {
+      updateDeliverymanDto.password = await bcrypt.hash(
+        updateDeliverymanDto.password,
+        10,
+      );
+    }
 
     return this.database.deliveryman.update({
       where: { id },
-      data: deliveryman,
+      data: updateDeliverymanDto,
       select,
     });
   }
