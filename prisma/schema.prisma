@@ -31,7 +31,7 @@ model Delivery {
   id String @id @default(uuid())
 
   item_name String
-  status    Status
+  status    Status?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -39,8 +39,8 @@ model Delivery {
   client    Client @relation(fields: [id_client], references: [id])
   id_client String
 
-  deliveryman    Deliveryman @relation(fields: [id_deliveryman], references: [id])
-  id_deliveryman String
+  deliveryman    Deliveryman? @relation(fields: [id_deliveryman], references: [id])
+  id_deliveryman String?
 
   @@map("deliveries")
 }
