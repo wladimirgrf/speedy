@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { User, UserDecorator } from 'src/decorators/user.decorator';
 import { DeliveriesService } from './deliveries.service';
@@ -19,5 +19,20 @@ export class DeliveriesController {
       id_client: user.id,
       item_name,
     });
+  }
+
+  @UseGuards(AuthGuard(['client', 'deliveryman']))
+  @Get()
+  findAll(@User() user: UserDecorator): Promise<Delivery[]> {
+    return this.deliveriesService.findAll(user.id);
+  }
+
+  @UseGuards(AuthGuard(['client', 'deliveryman']))
+  @Get(':id')
+  findById(
+    @Param('id') id: string,
+    @User() user: UserDecorator,
+  ): Promise<Delivery> {
+    return this.deliveriesService.findById(id, user.id);
   }
 }

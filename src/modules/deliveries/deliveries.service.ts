@@ -25,4 +25,39 @@ export class DeliveriesService {
       data: { ...createDeliveryDto, status: 'IN_PREPARATION' },
     });
   }
+
+  async findAll(userId: string): Promise<Delivery[]> {
+    const id_client = { equals: userId };
+    const id_deliveryman = { equals: userId };
+
+    const deliveries = await this.database.delivery.findMany({
+      where: {
+        OR: [{ id_client }, { id_deliveryman }],
+      },
+    });
+
+    if (!deliveries) {
+      throw new NotFoundError('Deliveries were not found.');
+    }
+
+    return deliveries;
+  }
+
+  async findById(id: string, userId: string): Promise<Delivery> {
+    const id_client = { equals: userId };
+    const id_deliveryman = { equals: userId };
+
+    const delivery = await this.database.delivery.findFirst({
+      where: {
+        AND: [{ id: { equals: id } }],
+        OR: [{ id_client }, { id_deliveryman }],
+      },
+    });
+
+    if (!delivery) {
+      throw new NotFoundError('Delivery was not found.');
+    }
+
+    return delivery;
+  }
 }
