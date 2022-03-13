@@ -60,4 +60,8 @@ export class DeliveriesService {
 
     return delivery;
   }
+
+  findOpenDeliveries(): Promise<Delivery[]> {
+    return this.database.delivery.findMany({ where: { id_deliveryman: null } });
+  }
 }

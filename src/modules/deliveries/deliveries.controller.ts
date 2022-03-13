@@ -27,6 +27,12 @@ export class DeliveriesController {
     return this.deliveriesService.findAll(user.id);
   }
 
+  @UseGuards(AuthGuard('deliveryman'))
+  @Get('open')
+  findOpenDeliveries(): Promise<Delivery[]> {
+    return this.deliveriesService.findOpenDeliveries();
+  }
+
   @UseGuards(AuthGuard(['client', 'deliveryman']))
   @Get(':id')
   findById(
