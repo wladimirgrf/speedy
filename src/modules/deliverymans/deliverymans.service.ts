@@ -30,7 +30,6 @@ export class DeliverymansService {
     const deliverymanAlreadyExists = await this.database.deliveryman.findUnique(
       {
         where: { username: createDeliverymanDto.username },
-        select,
       },
     );
 
@@ -43,7 +42,7 @@ export class DeliverymansService {
       password: await bcrypt.hash(createDeliverymanDto.password, 10),
     };
 
-    return this.database.deliveryman.create({ data: deliveryman });
+    return this.database.deliveryman.create({ data: deliveryman, select });
   }
 
   findById(
