@@ -1,7 +1,9 @@
 import { IsString } from 'class-validator';
-import { Delivery } from '../entities/delivery.entity';
 
-export class CreateDeliveryDto extends Delivery {
+export class CreateDeliveryDto {
   @IsString()
   item_name: string;
+
+  @IsString()
+  id_client: string;
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { DatabaseService } from 'src/database/database.service';
-import { NotFoundError } from 'src/errors';
+import { DatabaseService } from '../../database/database.service';
+import { NotFoundError, UnauthorizedError } from '../../errors';
 import { ClientsService } from '../clients/clients.service';
 import { CreateDeliveryDto } from './dtos/create-delivery.dto';
+import { UpdateDeliveryDto } from './dtos/update-delivery.dto';
 import { Delivery } from './entities/delivery.entity';
 
 @Injectable()
@@ -36,10 +37,6 @@ export class DeliveriesService {
       },
     });
 
-    if (!deliveries) {
-      throw new NotFoundError('Deliveries were not found.');
-    }
-
     return deliveries;
   }
 
@@ -63,5 +60,39 @@ export class DeliveriesService {
 
   findOpenDeliveries(): Promise<Delivery[]> {
     return this.database.delivery.findMany({ where: { id_deliveryman: null } });
+  }
+
+  async update(
+    id: string,
+    userId: string,
+    updateDeliveryDto: UpdateDeliveryDto,
+  ): Promise<Delivery> {
+    const delivery = await this.database.delivery.findUnique({
+      where: { id },
+    });
+
+    if (!delivery) {
+      throw new NotFoundError('Delivery was not found.');
+    }
+
+    if (
+      delivery.id_deliveryman !== null &&
+      delivery.id_deliveryman !== userId
+    ) {
+      throw new UnauthorizedError(
+        'You are not authorized to perform this action!',
+      );
+    }
+
+    const data: Delivery = { ...delivery, ...updateDeliveryDto };
+
+    if (delivery.id_deliveryman === null) {
+      data.id_deliveryman = userId;
+    }
+
+    return this.database.delivery.update({
+      data,
+      where: { id },
+    });
   }
 }
