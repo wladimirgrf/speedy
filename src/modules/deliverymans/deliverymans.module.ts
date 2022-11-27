@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { DeliverymansService } from './deliverymans.service';
 import { DeliverymansController } from './deliverymans.controller';
-import { DatabaseModule } from 'src/database/database.module';
-import { JwtModule } from '@nestjs/jwt';
+import { DatabaseModule } from '../../database/database.module';
 import { DeliverymansAuthService } from './deliverymans.auth.service';
 import { DeliverymansStrategy } from './deliverymans.strategy';
 

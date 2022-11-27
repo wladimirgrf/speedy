@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { ClientsService } from './clients.service';
 import { ClientsController } from './clients.controller';
-import { DatabaseModule } from 'src/database/database.module';
-import { JwtModule } from '@nestjs/jwt';
+import { DatabaseModule } from '../../database/database.module';
 import { ClientsAuthService } from './clients.auth.service';
 import { ClientsStrategy } from './clients.strategy';
 

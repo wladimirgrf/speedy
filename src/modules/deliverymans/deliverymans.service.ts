@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { ConflictError } from 'src/errors/ConflictError';
-
-import { DatabaseService } from 'src/database/database.service';
+import { ConflictError } from '../../errors/ConflictError';
+import { DatabaseService } from '../../database/database.service';
 import { CreateDeliverymanDto } from './dtos/create-deliveryman.dto';
 import { UpdateDeliverymanDto } from './dtos/update-deliveryman.dto';
 import {

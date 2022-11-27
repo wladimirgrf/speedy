@@ -8,7 +8,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { User, UserDecorator } from 'src/decorators/user.decorator';
+import { User, UserDecorator } from '../../decorators/user.decorator';
 import { DeliveriesService } from './deliveries.service';
 import { CreateDeliveryDto } from './dtos/create-delivery.dto';
 import { UpdateDeliveryDto } from './dtos/update-delivery.dto';

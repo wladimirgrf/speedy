@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { ConflictError } from 'src/errors/ConflictError';
-
-import { DatabaseService } from 'src/database/database.service';
+import { ConflictError } from '../../errors/ConflictError';
+import { DatabaseService } from '../../database/database.service';
 import { CreateClientDto } from './dtos/create-client.dto';
 import { UpdateClientDto } from './dtos/update-client.dto';
 import { Client, ClientCreateInput } from './entities/client.entity';

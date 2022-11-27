@@ -6,7 +6,7 @@ import {
   CreateClientPayloadDto,
   CreateClientTokenDto,
 } from './dtos/auth-client.dto';
-import { UnauthorizedError } from 'src/errors';
+import { UnauthorizedError } from '../../errors';
 import { ClientsService } from './clients.service';
 import { Client } from './entities/client.entity';
 

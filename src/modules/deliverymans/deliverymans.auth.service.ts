@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
-import { UnauthorizedError } from 'src/errors';
+import { UnauthorizedError } from '../../errors';
 import { DeliverymansService } from './deliverymans.service';
 import {
   CreateDeliverymanTokenDto,

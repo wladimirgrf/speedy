@@ -9,14 +9,14 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dtos/create-client.dto';
 import { UpdateClientDto } from './dtos/update-client.dto';
 import { CreateAuthDto, CreateClientTokenDto } from './dtos/auth-client.dto';
 import { Client } from './entities/client.entity';
-import { AuthGuard } from '@nestjs/passport';
 import { ClientsAuthService } from './clients.auth.service';
-import { User, UserDecorator } from 'src/decorators/user.decorator';
+import { User, UserDecorator } from '../../decorators/user.decorator';
 
 @Controller('clients')
 export class ClientsController {

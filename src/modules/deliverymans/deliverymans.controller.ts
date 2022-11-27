@@ -9,6 +9,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { DeliverymansService } from './deliverymans.service';
 import { CreateDeliverymanDto } from './dtos/create-deliveryman.dto';
 import { UpdateDeliverymanDto } from './dtos/update-deliveryman.dto';
@@ -17,9 +18,8 @@ import {
   CreateDeliverymanTokenDto,
 } from './dtos/auth-deliveryman.dto';
 import { Deliveryman } from './entities/deliverymana.entity';
-import { AuthGuard } from '@nestjs/passport';
 import { DeliverymansAuthService } from './deliverymans.auth.service';
-import { User, UserDecorator } from 'src/decorators/user.decorator';
+import { User, UserDecorator } from '../../decorators/user.decorator';
 
 @Controller('deliverymans')
 export class DeliverymansController {
