@@ -29,7 +29,7 @@ Below the technologies, used to build this API:
 **Requirements**
 
 - [Node.js](https://nodejs.org/en/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- [PostgreSQL Container](https://www.postgresql.org/)
 
 **Clone the project**
 ```bash
@@ -44,28 +44,27 @@ $ npm install
 **Environment configuration**
 ```bash
 # Make a copy of '.env.sample'
-# Fill both files with YOUR environment variables.
+# Fill it with your environment variables
 $ cp .env.sample .env
-$ cp .env.sample .env.test
 ```
 
-**Run the containers**
+**Run the container**
 ```bash
-$ docker-compose up -d
+# Create the instance of postgreSQL using docker
+$ docker run --name postgres -e POSTGRES_PASSWORD={password} -p 5432:5432 -d postgres
 ```
 
 **Migrations**
 ```bash
-$ npm run typeorm migration:run
+$ npx prisma migrate dev
 ```
 
 **Launch the Application**
 ```bash
-$ npm run dev
+$ npm start
 ```
 
->The API will be launch at `http://localhost:3333/`<br>
->Documentation available at `http://localhost:3333/api-docs`
+>The API will be launch at `localhost` on the chosen port or on the default `3333`<br>
 
 
 ## 🤝 Contributing
