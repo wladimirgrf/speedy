@@ -28,12 +28,9 @@ export class DeliveriesService {
   }
 
   async findAll(userId: string): Promise<Delivery[]> {
-    const id_client = { equals: userId };
-    const id_deliveryman = { equals: userId };
-
     const deliveries = await this.database.delivery.findMany({
       where: {
-        OR: [{ id_client }, { id_deliveryman }],
+        OR: [{ id_client: userId }, { id_deliveryman: userId }],
       },
     });
 
@@ -41,13 +38,10 @@ export class DeliveriesService {
   }
 
   async findById(id: string, userId: string): Promise<Delivery> {
-    const id_client = { equals: userId };
-    const id_deliveryman = { equals: userId };
-
     const delivery = await this.database.delivery.findFirst({
       where: {
         AND: [{ id: { equals: id } }],
-        OR: [{ id_client }, { id_deliveryman }],
+        OR: [{ id_client: userId }, { id_deliveryman: userId }],
       },
     });
 
