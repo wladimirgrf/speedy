@@ -1,73 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+### speedy
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![](https://img.shields.io/github/repo-size/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)]()
+[![](https://img.shields.io/github/last-commit/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)](https://github.com/wladimirgrf/certification/commits/master)
+[![](https://img.shields.io/github/issues/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)](https://github.com/wladimirgrf/certification/issues)
+[![](https://img.shields.io/github/license/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)]()
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Project developed for the Rocketseat Ignite (_Node.js Path_). This application is a simple REST API and It was built to manage package deliveries.
 
-## Description
+## 🌍 Ecosystem
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Below the technologies, used to build this API:
 
-## Installation
+|                      Name                                   |                         Status                          |
+|:-----------------------------------------------------------:|:-------------------------------------------------------:|
+|<img height="58" src="https://cdn.worldvectorlogo.com/logos/nodejs-1.svg"> | <img alt="node version" src="https://img.shields.io/badge/nodejs-v16.15-blue?color=%23FFB000&labelColor=000000"> |
+|<img height="60" src="https://cdn.worldvectorlogo.com/logos/nestjs.svg"> | <img alt="nestjs version" src="https://img.shields.io/badge/nestjs-v8.0-blue?color=%23FFB000&labelColor=000000">|
+|<img height="55" src="https://cdn.worldvectorlogo.com/logos/typescript.svg"> | <img alt="typescript version" src="https://img.shields.io/badge/typescript-v4.3-blue?color=%23FFB000&labelColor=000000"> |
+|<img height="55" src="https://cdn.worldvectorlogo.com/logos/prisma-4.svg"> | <img alt="prisma version" src="https://img.shields.io/badge/prisma-v3.10-blue?color=%23FFB000&labelColor=000000"> |
+|<img height="55" src="https://cdn.worldvectorlogo.com/logos/eslint-1.svg"> | <img alt="eslint version" src="https://img.shields.io/badge/eslint-v8.0-blue?color=%23FFB000&labelColor=000000"> |
+|<img height="55" src="https://cdn.worldvectorlogo.com/logos/prettier-2.svg"> | <img alt="prettier version" src="https://img.shields.io/badge/prettier-v2.3-blue?color=%23FFB000&labelColor=000000"> |
 
+## 🧱 ERM
+
+![](.github/assets/diagram.png)
+
+## ▶️ Getting started
+
+**Requirements**
+
+- [Node.js](https://nodejs.org/en/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+**Clone the project**
+```bash
+$ git clone https://github.com/wladimirgrf/speedy.git && cd speedy
+```
+
+**Install the Project dependencies**
 ```bash
 $ npm install
 ```
 
-## Running the app
-
+**Environment configuration**
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Make a copy of '.env.sample'
+# Fill both files with YOUR environment variables.
+$ cp .env.sample .env
+$ cp .env.sample .env.test
 ```
 
-## Test
-
+**Run the containers**
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ docker-compose up -d
 ```
 
-## Support
+**Migrations**
+```bash
+$ npm run typeorm migration:run
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Launch the Application**
+```bash
+$ npm run dev
+```
 
-## Stay in touch
+>The API will be launch at `http://localhost:3333/`<br>
+>Documentation available at `http://localhost:3333/api-docs`
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+## 🤝 Contributing
 
-Nest is [MIT licensed](LICENSE).
+**Fork the repository and clone your fork**
+
+```bash
+$ git clone fork-url && cd speedy
+```
+
+**Create a branch for your edits**
+```bash
+$ git checkout -b new-feature
+```
+
+**Make the commit with your changes**
+```bash
+$ git commit -m 'feat: New feature'
+```
+
+**Send the code to your remote branch**
+```bash
+$ git push origin new-feature
+```
+
+Create a pull request with your version. <br>
+After your pull request is merged, you can delete your branch.
+
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
