@@ -1,10 +1,23 @@
 {
   "name": "speedy",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
-  "license": "UNLICENSED",
+  "title": "speedy",
+  "version": "1.0.0",
+  "description": "Package Deliveries | REST API with NestJS",
+  "author": "Wladimir <wladimir.code@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "speedy",
+    "api",
+    "rest-api",
+    "package-deliveries",
+    "rocketseat",
+    "nestjs",
+    "nodejs"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wladimirgrf/speedy"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
