@@ -1,8 +1,8 @@
 ### speedy
 
 [![](https://img.shields.io/github/repo-size/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)]()
-[![](https://img.shields.io/github/last-commit/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)](https://github.com/wladimirgrf/certification/commits/master)
-[![](https://img.shields.io/github/issues/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)](https://github.com/wladimirgrf/certification/issues)
+[![](https://img.shields.io/github/last-commit/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)](https://github.com/wladimirgrf/speedy/commits/master)
+[![](https://img.shields.io/github/issues/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)](https://github.com/wladimirgrf/speedy/issues)
 [![](https://img.shields.io/github/license/wladimirgrf/speedy?color=%23FFB000&labelColor=000000)]()
 
 Project developed for the Rocketseat Ignite (_Node.js Path_). This application is a simple REST API and It was built to manage package deliveries.
